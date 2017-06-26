@@ -1,0 +1,727 @@
+$gen-font:  'proxima'
+$bold-font: 'futura'
+$gen-padding:   1.5em
+$containerW:    1000px 
+$gen-font-color:    #333
+$sec-font-color: #6f6f6f
+$third-font-color: #c6c5c5
+$gen-font-size: 16px
+$extraSmall: 480px
+$smartPhone:  700px
+$tab:    1024px
+$jsBack:    #f2f2f2
+
+
+$ui-img-list: "../img/discussion.jpg" "../img/sketch.jpg" "../img/font-color.jpg" "../img/presentation.jpg"
+$js-img-list: "../img/jqueryL.png" "../img/angularL.png" "../img/reactL.png" "../img/nodeL.png" "../img/emberL.png" "../img/backboneL.png"
+
+/* Mixins */
+@mixin fontFace($fontname)
+    @font-face
+        font-family: $fontname
+        src: url('../font/'+$fontname+'.eot')
+        src: url('../font/'+$fontname+'.eot?#iefix') format('embedded-opentype'), url('../font/'+$fontname+'.woff') format('woff'), url('../font/'+$fontname+'.ttf') format('truetype'), url('../font/'+$fontname+'.svg#fontname') format('svg')
+        font-weight: normal
+        font-style: normal
+    
+@mixin textGrad($color)
+    color:  $color
+
+@mixin borderGradient($color1)
+    border: 2px solid $color1
+    padding: $gen-padding / 2.5  
+    margin: 0 .3em
+    position:   relative
+    &:after
+        content:    ""
+        border-left: 10px solid transparent
+        border-right: 10px solid transparent
+        border-top: 10px solid $color1
+        position: absolute
+        transform: translate(-50%, 130%)
+
+@mixin res($media)
+    @if $media == handhelds
+        @media only screen and (max-width: $extraSmall)
+            @content
+    @else if $media == smartPhoneLad
+        @media only screen and (min-width: $extraSmall+1) and (max-width: $smartPhone - 1)
+            @content
+    @else if $media == medium-screen
+        @media only screen and (min-width: $smartPhone+1) and (max-width:  $tab - 1)
+            @content
+    @else if $media == large-screen
+        @media only screen and (min-width:  $tab+1)
+            @content
+
+@mixin grandBack($color1, $color2,$color3)
+    background: -webkit-linear-gradient($color1, $color2, $color3)
+    background: linear-gradient($color1, $color2, $color3)
+
+@mixin transition($ms)
+    transition: all $ms linear
+
+@mixin jBox($type)
+    @if $type == filled
+        background: $jsBack
+    @if $type == border
+        border: 1px solid $jsBack
+        background: none
+
+@mixin backgroundImg($url,$bgcolor,$verPos, $horPos, $repeat, $size)
+    background-image: url($url)
+    background-color: $bgcolor
+    background-position: $horPos $verPos
+    background-repeat:  $repeat
+    background-size:    $size
+    
+
+/* Mixins */
+
+
+@include fontFace($fontname:$gen-font)
+@include fontFace($fontname:$bold-font)
+
+a
+    color:  $gen-font-color
+    text-decoration: none
+
+h1,h2,h3,h4
+    margin: 0
+
+h1
+    font-size:  3.5em
+    padding-bottom: 2em 
+    font-family:    $bold-font
+    line-height:    0.9em
+    text-align: center
+    text-transform: uppercase
+    padding:    2em
+    @include res(handhelds)
+        font-size:  2.5em
+    @include res(smartPhoneLad)
+        font-size:  2.5em
+    @include res(medium-screen)
+        font-size:  2.5em
+    span
+        font-size:  0.4em
+        line-height:    1.5em
+        display:    block
+
+h2
+    text-transform: uppercase
+    font-family:    $bold-font
+    font-size:  2em
+    line-height:    1em
+    padding:    1em 0
+    @include res(handhelds)
+        font-size:  1.5em
+    @include res(smartPhoneLad)
+        font-size:  1.5em
+    @include res(medium-screen)
+        font-size:  1.5em
+
+h2 > span, h3 > span
+    font-size:  0.6em
+    display:    block
+
+h3
+    text-transform: uppercase
+    font-size:  1.5em
+    font-family:    $bold-font
+    padding-bottom: 1.5em !important
+    color:  $gen-font-color
+
+h4
+    font-size:  1.3em
+    text-transform: uppercase
+
+.nBox
+    width:  100%
+    padding:    $gen-padding
+    box-sizing: border-box
+
+.nBox2
+    width:  50%
+    padding:    $gen-padding * 1.5
+    box-sizing: border-box
+
+.nBox3
+    width:  33.33%
+    padding:    $gen-padding/3
+    box-sizing: border-box
+
+.nBox4
+    width:  25%
+    padding:    $gen-padding/4
+    box-sizing: border-box
+
+.nBox6
+    width:  60%
+    padding:    $gen-padding * 3
+    box-sizing: border-box
+
+.center
+    text-align: center
+    width:  100%
+    padding:    0 20%
+    box-sizing: border-box
+
+.centerAlign
+    text-align: center
+
+.rightAlign
+    text-align: right
+
+.leftFloat
+    float:  left
+
+.leftFloat:after
+    content:    ""
+    display:    block
+    clear:  both
+
+.rightFloat
+    float:  right
+
+.rightFloat:after
+    content:    ""
+    display:    block
+    clear:  both
+
+figure
+    padding:    0
+    margin: 0
+
+.container
+    padding: 0 10%
+    @include res(handhelds)
+        padding: 2em 0
+    @include res(smartPhoneLad)
+        padding: 2em 5%
+    @include res(medium-screen)
+        padding: 0
+
+.para
+    //padding:  2em 0 !important  
+
+.animele.fade
+    opacity:    0
+    @include transition(1500ms)
+    
+.animele.fade.in-view
+    opacity:    1
+    @include transition(1500ms)
+
+.animele.fadeBottom
+    opacity:    1
+    transform:  translateY(5em)
+    @include transition(700ms)
+
+.animele.fadeBottom.in-view
+    opacity:    1
+    transform:  translateY(0)
+    @include transition(700ms)
+
+.white-title
+    color:  #FFFFFF
+.dark-title
+    color: $gen-font-color
+
+.light-title
+    color: $sec-font-color
+
+.lightDark-title
+    color: $third-font-color
+
+.lightSectionBack
+    @include grandBack(#fff,#FDFDFD,#F7F7F7)
+    
+
+.sectionPadding
+    padding:    $gen-padding * 3 0
+    clear:  both
+    @include res(handhelds)
+        padding:    $gen-padding * 1 0
+    @include res(smartPhoneLad)
+        padding:    $gen-padding * 2 0
+    @include res(medium-screen)
+        padding:    $gen-padding * 2 0
+
+.nopadding
+    padding:    0
+
+.lrPadding
+    padding:    $gen-padding * 2   $gen-padding * 4
+
+.tPadding
+    padding-top:    $gen-padding * 2
+    padding-bottom:    $gen-padding / 4
+
+
+.tbPadding
+    padding-top:    $gen-padding * 2
+    padding-bottom:    $gen-padding * 2
+
+.hideen
+    display:    none
+
+.autoFlow
+    overflow:   auto
+
+.dottedLines
+    border: none
+    border-top: 2em dotted #bfdc7c
+
+.centerImg
+    position:   relative
+    //padding:    $gen-padding * 2   0 0 
+    img
+        position:   relative
+        left:   50%
+        transform:  translateX(-50%)
+
+/* body */
+html,body
+    height: 100%
+html,body, main, ul
+    padding:    0
+    margin: 0
+    font-family:    $gen-font
+    height: 100%
+    letter-spacing: 0.05em
+    color:  $gen-font-color
+    font-size:  $gen-font-size
+
+p
+    margin: 0
+    padding:    0
+
+/* comman */
+.banner
+    height: 85%
+ul
+    list-style: none
+.gen-padding
+    padding:    $gen-padding
+main
+    h1
+        @include res(handhelds)
+            padding: 1em
+        @include res(smartPhoneLad)
+            padding: 1em
+
+
+/* comman */
+/* body */
+
+
+/* home page */
+#homepage
+    background: #000
+    .banner
+        color:  #ffffff
+        background: url(../img/nature-mentor.jpg)
+        background-size: contain
+        background-position: bottom center
+        background-repeat: no-repeat
+        div
+            width: 50%
+            left: 60%
+            position: absolute
+            bottom: 42%
+            @include res(handhelds)
+                width: 100%
+                left: 0%
+                bottom: 80%
+            @include res(smartPhoneLad)
+                width: 100%
+                left: 0%
+                bottom: 50%
+                background: rgba(0,0,0,0.5)
+
+        h1
+            padding:    $gen-padding / 8 0
+            letter-spacing: 0.4em
+            text-align: left
+            @include res(handhelds)
+                text-align: center
+            @include res(smartPhoneLad)
+                text-align: center
+        p
+            font-size:  1.5em
+    #skills
+        ul
+            display: flex
+            flex-wrap:  wrap
+            li
+                display:    flex
+                flex-direction: column
+                background: #ffffff
+                float:  left
+                border: 1px solid #e1e1e1
+                @include res(handhelds)
+                    border-right:   0
+                    text-align: center
+                @include res(smartPhoneLad)
+                    text-align: center
+
+/* home page */
+
+/* Branding */
+#branding
+    background: #ffffff
+    h1
+        @include textGrad(#ca3f51)
+
+
+    .process
+        @for $i from 1 through 4
+            .step:nth-Child(#{$i})
+                top:    -2em * ($i)
+                @include res(handhelds)
+                    top:  0
+                @include res(smartPhoneLad)
+                    top:  0
+
+        @each $current-img in $ui-img-list
+            $i: index($ui-img-list, $current-img)
+            .step:nth-child(#{$i}) .img
+                background: url( $current-img )
+                background-size:    cover
+
+        .step
+            clear:  both
+            position:   relative
+            transform:  translateY(-20%)
+            
+
+        margin: 13em 0
+        
+        .img
+            box-shadow: 0px 0px 18px 3px rgba(0,0,0,0.09)
+            width:  53%
+            height: 25em
+            background-size:    cover
+            @include res(handhelds)
+                width:  100%
+            @include res(smartPhoneLad)
+                width:  100%
+        .title
+            width:  47%
+            padding:   5em 
+            box-sizing: border-box
+            @include res(handhelds)
+                width:  100%
+                padding:   2em  2em 4em 
+            @include res(smartPhoneLad)
+                width:  100%
+                padding:  2em  2em 4em
+    .arrow
+        padding: 0 20% 5em 20%
+        @include res(handhelds)
+            padding: 0 20% 1em 20%
+        @include res(smartPhoneLad)
+            padding: 0 20% 1em 20%
+
+/* Branding */
+
+/* UI UX */
+#uiux
+    .banner
+        height: 60%
+        position:   relative
+        background-image: url('../img/hand.png')
+        background-color: #1b1b1b
+        background-position: 80% bottom
+        background-repeat:  no-repeat
+        background-size:    10%
+        @include res(handhelds)
+            background-size:    10%
+        @include res(smartPhoneLad)
+            background-size:    10%
+        p
+            position:   absolute
+            bottom: 25%
+        &:before,  &:after
+            content: ""
+            width: 100%
+            height: 100%
+            background: url("../img/comLeftBack.png") no-repeat 0px bottom
+            top: 0px
+            right: 0px
+            position: absolute
+            display: inline-block
+            @include res(handhelds)
+                background-size:    30%
+            @include res(smartPhoneLad)
+                background-size:    30%
+            @include res(medium-screen)
+                background-size:    25%
+        &:after
+            background: url("../img/comRightBack.png") no-repeat 100% top
+            @include res(handhelds)
+                background-size:    25%
+            @include res(smartPhoneLad)
+                background-size:    25%
+            @include res(medium-screen)
+                background-size:    25%
+    h1
+        @include textGrad(#ff981f)
+        position: relative
+        top:    50%
+        transform: translateY(-70%)
+    
+    .category
+        overflow: auto
+        div
+            padding:    5em
+        div:nth-child(1),div:nth-child(2)
+            float:  left
+        div:nth-child(1)
+            background: #242424
+        div:nth-child(2)
+            background: #2e2e2e
+    
+    .squareTitle
+        display: inline-block
+        @include borderGradient(#ff981f)
+    
+
+    .coffeeImg
+        transform: translateX(50%)
+    .tools
+        background-color:   #4a4a4a
+        figure
+            float:  left
+            img
+                @extend .tbPadding
+                @include res(handhelds)
+                    padding: 0
+                @include res(smartPhoneLad)
+                    padding: 0
+                position:   relative
+                left:   50%
+                transform:  translateX(-50%)
+    .testdesign
+        padding-bottom: 0
+
+
+/* UI UX */
+
+/* html5 */
+
+#html5
+    .banner
+        @include grandBack(#FFFFFF,#f7f4f4,#F1F1F1)
+        position:   relative
+        h1
+            padding:    1em 0 0.5em
+            font-size:  6em
+            @include res(handhelds)
+                font-size:  3em
+            @include res(smartPhoneLad)
+                font-size:  4em
+            @include res(medium-screen)
+        img
+            position:   absolute
+            bottom: 0
+            left:   50%
+            transform:  translateX(-50%)
+            
+
+    .htmlTypes
+        background: #e8e8e8
+        ul
+            padding-top:    $gen-padding
+            padding-bottom:    $gen-padding
+            @include res(handhelds)
+                padding-top:    0
+                padding-bottom:    0
+            li
+                @extend .light-title
+                display:   block
+                text-align:   center
+                float:  left
+                @include res(handhelds)
+                    width:  100%
+                    text-align:   left
+                    border-bottom:  1px solid $third-font-color
+                    clear:  both
+                    padding:    1.5em
+                @include res(smartPhoneLad)
+
+                @include res(medium-screen)
+            &:after
+                content:    ""
+                display:    block
+                clear:  both
+    .responsiveCSS
+        background: #4a4a4a
+        min-height: 30em
+        background-size: 33%
+        background-repeat: no-repeat
+        background-position-y: 50%
+        &:after
+            content:    ""
+            background: url('../img/responsive.png')
+            background-repeat:  no-repeat
+            position:   absolute
+            background-size:    70%
+            background-position: left center
+            width:  40%
+            height: 80%
+            @include res(handhelds)
+                background: url('../img/responsive_mob.png')
+                background-repeat: no-repeat
+                background-size: contain
+                height: 30%
+                position: absolute
+                bottom: 0
+                left: 50%
+                transform: translateX(-50%)
+                width: 100%
+                background-position: center
+            @include res(smartPhoneLad)
+                background: url('../img/responsive_mob.png')
+                background-repeat: no-repeat
+                background-size: contain
+                height: 40%
+                position: absolute
+                bottom: 0
+                left: 50%
+                transform: translateX(-50%)
+                width: 100%
+                background-position: center
+                
+
+        color:  #fff
+        position:   relative
+        div
+            position:   absolute
+            top:    50%
+            right:  0
+            transform:  translateY(-60%)
+            text-align: center
+            @include res(handhelds)
+                top:   10%
+                transform:  translateY(0%)
+            @include res(smartPhoneLad)
+                top:   10%
+                transform:  translateY(0%)
+/* JS */    
+#js
+    ul
+        display:    flex
+        flex-wrap:  wrap   
+        li
+            min-height: 20em
+            @include jBox(filled)
+        li:nth-child(2)
+            @include jBox(border)
+        li:nth-child(3)
+            @include jBox(border)
+        li:nth-child(6)
+            @include jBox(border)
+        li:nth-child(7)
+            @include jBox(border)
+        @include res(handhelds)
+            li:nth-child(odd)
+                @include jBox(filled)
+            li:nth-child(even)
+                @include jBox(border)
+        @include res(smartPhoneLad)
+            li:nth-child(odd)
+                @include jBox(filled)
+            li:nth-child(even)
+                @include jBox(border)
+                
+    .nBox2
+        padding:   $gen-padding * 3
+    .services
+        li  
+            position:   relative
+            h3
+                position:   relative
+                left:   3em
+                @include res(handhelds)
+                    left:   0em
+                @include res(smartPhoneLad)
+                    left:   0em
+
+            &:before
+                content:    ""
+                width:  3.3em
+                height: 3.3em
+                display:    block
+                position:   absolute
+                top:    4.5em
+                @include res(handhelds)
+                    left: 50%
+                    position:   relative
+                    top: 0em
+                    transform:  translateX(-50%)
+                @include res(smartPhoneLad)
+                    left: 50%
+                    top: 0em
+                    position:   relative
+                    transform:  translateX(-50%)
+            
+        @each $current-img in $js-img-list
+            $i: index($js-img-list, $current-img)
+            li:nth-child(#{$i})
+                &:before
+                    background: url( $current-img ) no-repeat
+/* JS */
+
+
+@media only screen and (max-width: $smartPhone)
+    .nBox-res
+        width:  100%
+        padding:  $gen-padding  
+    .nBox2-res
+        width:  50%
+    .nBox3-res
+        width:  75%
+    .nBox4-res
+        width:  25%
+    h2,h3, p
+        text-align: center
+    .hideenInST
+        display:    none
+    .lrPaddingInSmt
+        padding:    $gen-padding * 2
+
+    #uiux
+        .category
+            .nBox2-res
+                padding:    $gen-padding * 1    
+                p
+                    display:    none
+
+@media only screen and (min-width: $smartPhone+1) and (max-width:   $tab - 1)
+    .nBox-resTab
+        width:  100%
+    .nBox2-resTab
+        width:  50%
+        padding:    $gen-padding * 1.5
+    .nBox3-resTab
+        width:  75%
+    .nBox32-resTab
+        width:  33%
+    .nBox4-resTab
+        width:  25%
+    .hideenInST
+        display:    none
+    .lrPaddingInTab
+        padding:    $gen-padding * 2
+    #uiux
+        .category
+            .nBox2-res
+                padding:    $gen-padding * 2
+
+@media only screen and (max-width: 700px) and (orientation:landscape)
+    #uiux .banner
+        height: 100%
+    .nBox3-landscape
+        width:  33%
